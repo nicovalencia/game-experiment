@@ -9,6 +9,19 @@ function($, _, Handlebars) {
   // Put application wide code here
 
   return {
+    
+
+    __extends: function(child, parent) {
+      var __hasProp = {}.hasOwnProperty;
+      for (var key in parent) {
+        if (__hasProp.call(parent, key)) child[key] = parent[key];
+      }
+      function ctor() { this.constructor = child; }
+      ctor.prototype = parent.prototype;
+      child.prototype = new ctor;
+      child.__super__ = parent.prototype; return child;
+    },
+
     // This is useful when developing if you don't want to use a
     // build process every time you change a template.
     //
@@ -42,11 +55,6 @@ function($, _, Handlebars) {
 
       // Ensure a normalized return value (Promise)
       return def.promise();
-    },
-
-    // Create a custom object with nested {}
-    module: function(additionalProps) {
-      return _.extend({}, additionalProps);
     }
 
   };

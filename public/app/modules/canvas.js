@@ -1,17 +1,17 @@
 define([
-  "GameExperiment"
+  "GameExperiment",
 
   // Libs
 
   // Modules
+  "modules/player"
 
   // Plugins
 ],
 
-function(GameExperiment) {
+function(GameExperiment, Player) {
 
-  // Create a new module
-  var Canvas = GameExperiment.module();
+  var Canvas = {};
 
   Canvas.attributes = {
     canvas_id: "canvas",
@@ -22,6 +22,7 @@ function(GameExperiment) {
   Canvas.initialize = function() {
     this.render(function() {
       Canvas.setup();
+      Canvas.createPlayer();
       Canvas.loop();
     });
   };
@@ -44,12 +45,23 @@ function(GameExperiment) {
   };
 
   Canvas.loop = function() {
-    this.context.fillStyle = "rgb(200,0,0)";  
-    this.context.fillRect (10, 10, 55, 50); 
-    setTimeout(Canvas.loop, 5000);
+    /*
+     * This will reference a player movement controller
+     */
+    Canvas.hero.tick();
+
+    setTimeout(Canvas.loop, 100);
   };
 
-  // Required, return the module for AMD compliance
+  Canvas.createPlayer = function() {
+    var config = {
+      context: Canvas.context,
+      name: "Hero"
+    };
+
+    Canvas.hero = new Player(config);
+  };
+
   return Canvas;
 
 });
