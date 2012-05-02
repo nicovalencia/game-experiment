@@ -12,7 +12,12 @@ define([
 function(GameExperiment, Sprite) {
 
   // __extends Sprite
-  var Player = (function(_super) {
+  return (function(_super) {
+
+    function Player(options) {
+      var args = _.extend(options, Player.attributes);
+      return Player.__super__.constructor.call(this, args);
+    }
 
     GameExperiment.__extends(Player, _super);
 
@@ -23,16 +28,9 @@ function(GameExperiment, Sprite) {
       height: 30
     };
 
-    function Player(options) {
-      var args = _.extend(options, Player.attributes);
-      return Player.__super__.constructor.call(this, args);
-    }
-
     return Player;
 
   })(Sprite);
-
-  return Player;
 
 });
 

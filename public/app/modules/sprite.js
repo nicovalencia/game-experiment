@@ -10,9 +10,7 @@ define([
 
 function(GameExperiment) {
 
-  var Sprite = (function() {
-
-    Sprite.img = '/assets/img/default.png';
+  return (function() {
 
     function Sprite(options) {
       this.image_obj = new Image();
@@ -25,6 +23,10 @@ function(GameExperiment) {
       this.tick = _.bind(this.tick, this);
     }
 
+    Sprite.attributes = {
+      img: '/assets/img/default.png'
+    };
+
     Sprite.prototype.tick = function() {
       this.context.drawImage(this.image_obj, 0, 0, this.width, this.height, 10, 10, this.width, this.height);
     };
@@ -32,8 +34,6 @@ function(GameExperiment) {
     return Sprite;
 
   })();
-
-  return Sprite;
 
 });
 
