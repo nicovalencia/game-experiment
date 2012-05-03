@@ -29,25 +29,44 @@ function(GameExperiment, Sprite, Controller) {
 
     Player.attributes = {
       name: 'John Doe',
-      img: "/assets/img/player.png",
+      img: "/assets/img/player_down.png",
       frames: 8,
       width: 22,
       height: 30,
       x: 10,
-      y: 10
-    };
-
-    Player.actions = {
-      down: {
-        frames: 8,
-        img: "/assets/img/player.png"
+      y: 10,
+      actions: {
+        up: {
+          obj: new Image(),
+          src: "/assets/img/player_up.png",
+          frames: 8,
+          tick_ratio: 2
+        },
+        down: {
+          obj: new Image(),
+          src: "/assets/img/player_down.png",
+          frames: 8,
+          tick_ratio: 2
+        },
+        left: {
+          obj: new Image(),
+          src: "/assets/img/player_left.png",
+          frames: 8,
+          tick_ratio: 2
+        },
+        right: {
+          obj: new Image(),
+          src: "/assets/img/player_right.png",
+          frames: 8,
+          tick_ratio: 2
+        }
       }
     };
 
     Player.prototype.initialize = function() {
       var events = [
         {
-          keys: [40],
+          keys: [37, 38, 39, 40],
           callback: this.move
         }
       ];
@@ -55,8 +74,25 @@ function(GameExperiment, Sprite, Controller) {
     };
 
     Player.prototype.move = function(key) {
-      this.y += 10;
-      this.setAction(Player.actions.down);
+      var action;
+      switch (key) {
+        case 37:
+          this.x -= 2;
+          action = "left";
+          break;
+        case 38:
+          this.y -= 2;
+          action = "up";
+          break;
+        case 39:
+          this.x += 2;
+          action = "right";
+          break;
+        case 40:
+          this.y += 2;
+          action = "down";
+      }
+      this.setAction(action);
       this.tick();
     };
 
