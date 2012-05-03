@@ -30,8 +30,18 @@ function(GameExperiment, Sprite, Controller) {
     Player.attributes = {
       name: 'John Doe',
       img: "/assets/img/player.png",
-      width: 25,
-      height: 30
+      frames: 8,
+      width: 22,
+      height: 30,
+      x: 10,
+      y: 10
+    };
+
+    Player.actions = {
+      down: {
+        frames: 8,
+        img: "/assets/img/player.png"
+      }
     };
 
     Player.prototype.initialize = function() {
@@ -45,6 +55,8 @@ function(GameExperiment, Sprite, Controller) {
     };
 
     Player.prototype.move = function(key) {
+      this.y += 10;
+      this.setAction(Player.actions.down);
       this.tick();
     };
 
