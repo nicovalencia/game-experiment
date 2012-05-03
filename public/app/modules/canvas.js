@@ -30,6 +30,9 @@ function(GameExperiment, Player) {
   Canvas.setup = function() {
     this.$el = document.getElementById('canvas');
     this.context = this.$el.getContext('2d');
+    $(document).on("keydown", "*", function(event) {
+      return Canvas.keyHandler(event);
+    });
   };
 
   Canvas.render = function(callback) {
@@ -48,18 +51,34 @@ function(GameExperiment, Player) {
     /*
      * This will reference a player movement controller
      */
-    Canvas.hero.tick();
-
     setTimeout(Canvas.loop, 100);
+  };
+
+  Canvas.keyBindings = [];
+
+  Canvas.keyHandler = function(event) {
+    var stop_prop;
+    _.each(Canvas.keyBindings, function(binding) {
+      if ( binding.key === event.which ) {
+        binding.callback();
+        stop_prop = false;
+      } else { stop_prop = true; }
+    });
+    return stop_prop;
+  };
+
+  Canvas.addKeyListener = function(key, callback) {
+    Canvas.keyBindings.push({key: key, callback: callback});
   };
 
   Canvas.createPlayer = function() {
     var config = {
-      context: Canvas.context,
+      canvas: Canvas,
       name: "Hero"
     };
 
     Canvas.hero = new Player(config);
+    Canvas.hero.initialize();
   };
 
   return Canvas;

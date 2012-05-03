@@ -9,7 +9,9 @@ function($, _, Handlebars) {
   // Put application wide code here
 
   return {
-    
+
+    initialize: function() {
+    },
 
     __extends: function(child, parent) {
       var __hasProp = {}.hasOwnProperty;

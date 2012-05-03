@@ -13,6 +13,7 @@ function(GameExperiment, Canvas) {
   window.app = GameExperiment;
 
   $(function() {
+    GameExperiment.initialize();
     Canvas.initialize();
   });
 
